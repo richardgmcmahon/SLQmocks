@@ -4,13 +4,13 @@ from __future__ import print_function, division
 
 WARNING: logging sandpit testing in progress
 
-TODO: Outer join maybe to determine why some LRGs do not match with 
+TODO: Outer join maybe to determine why some LRGs do not match with
 WISE and/or VHS.
 
 
 needs /home/sr525/ etc
 
-python2.7 wise_vhs_match.py filename ra_col_name dec_col_name 
+python2.7 wise_vhs_match.py filename ra_col_name dec_col_name
 
 Based on:
 python2.7 /home/sr525/Python_Code/wise_vhs_match.py RA DEC \
@@ -45,7 +45,7 @@ datestamp = time.strftime("%Y%m%d",now)
 
 module_name =  os.path.splitext(__file__)[0]
 print('Module name: ', module_name)
-prefix = module_name 
+prefix = module_name
 
 from argparse import ArgumentParser
 parser = ArgumentParser()
@@ -97,7 +97,7 @@ my_logger.addHandler(handler)
 for i in range(20):
     my_logger.debug('i = %d' % i)
 
- 
+
 # add filemode="w" to overwrite
 # add a date or time stamp
 logging.basicConfig(filename="sample.log", filemode="w", level=logging.INFO)
@@ -130,7 +130,7 @@ print('numpy: ', np.__version__)
 
 import scipy
 print('scipy: ', scipy.__version__)
-from scipy.ndimage import interpolation 
+from scipy.ndimage import interpolation
 
 from scipy import signal, ndimage
 
@@ -171,7 +171,7 @@ from librgm.table_stats import table_stats
 #help(rgm.table_stats)
 
 
-logging.basicConfig(level=logging.DEBUG, 
+logging.basicConfig(level=logging.DEBUG,
     format='%(asctime)s - %(levelname)s - % (message)s',
                     datefmt='%m/%d/%Y %I:%M:%S %p')
 pid = os.getpid()
@@ -188,11 +188,12 @@ print('__name__: ', __name__)
 
 print(inspect.getsource(inspect.getsource))
 help(inspect.getargspec)
-arg_spec = inspect.getargspec(__name__)
-print('NAMES   :', arg_spec[0])
-print('*       :', arg_spec[1])
-print('**      :', arg_spec[2])
-print('defaults:', arg_spec[3])
+if __name__ != '__main__':
+    arg_spec = inspect.getargspec(__name__)
+    print('NAMES   :', arg_spec[0])
+    print('*       :', arg_spec[1])
+    print('**      :', arg_spec[2])
+    print('defaults:', arg_spec[3])
 
 
 print('inspect.stack depth: ', len(inspect.stack()))
@@ -220,7 +221,8 @@ print(frame, filename, line_number, function_name, lines, index)
 
 
 trace = traceback.extract_stack()
-progname_str=os.path.basename(trace[0])
+print(trace[0])
+#progname_str=os.path.basename(trace[0])
 print('len(trace): ', len(trace))
 for each in trace:
     print('trace: ', each)
@@ -238,7 +240,7 @@ print("Elapsed Time:", t1 - t0)
 print('Starting wise_vhs_match')
 #nrows=1000
 nrows=None
-result = wise_vhs_match(infile, 'RA','DEC', 
+result = wise_vhs_match(infile, 'RA','DEC',
     prefix='lrg_match_vhs_wise', nrows=nrows)
 
 result.meta['infile']= infile
@@ -255,5 +257,3 @@ for filename in logfiles:
 print(time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime()))
 t1 = time.clock()
 print("Elapsed Time:", t1 - t0)
-
-
